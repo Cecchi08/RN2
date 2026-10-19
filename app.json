@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Sensor Lab",
+    "slug": "sensor-lab-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "android": {
+      "package": "com.mateo.sensorlab",
+      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
+    },
+    "ios": {
+      "bundleIdentifier": "com.mateo.sensorlab",
+      "supportsTablet": true
+    },
+    "plugins": [
+      ["expo-camera", {
+        "cameraPermission": "Sensor Lab necesita la cámara para tomar fotos y leer códigos.",
+        "microphonePermission": "Sensor Lab no utiliza el micrófono.",
+        "recordAudioAndroid": false
+      }],
+      ["expo-location", {
+        "locationWhenInUsePermission": "Sensor Lab usa tu ubicación para mostrar coordenadas GPS."
+      }],
+      ["expo-local-authentication", {
+        "faceIDPermission": "Sensor Lab utiliza Face ID para probar la autenticación biométrica."
+      }],
+      ["expo-sensors", {
+        "motionPermission": "Sensor Lab usa los sensores de movimiento para mostrar aceleración y giro."
+      }]
+    ]
+  }
+}
