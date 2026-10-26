@@ -1,23 +1,28 @@
 import { useRef, useState } from 'react';
-import { ActivityIndicator, Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Image, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import ActionButton from '../components/ActionButton';
 import Panel from '../components/Panel';
 import SectionHeader from '../components/SectionHeader';
 import { BodyText, Label } from '../components/Typography';
+import usePhotoGallery from '../hooks/usePhotoGallery';
 import { useTheme } from '../theme/ThemeContext';
 
+// Controla vista previa, lector y captura; el hook de galería se ocupa de permisos y guardado.
 export default function CameraScreen() {
   const { colors } = useTheme();
   const [permission, requestPermission] = useCameraPermissions();
   const [scanning, setScanning] = useState(false);
   const [scanResult, setScanResult] = useState(null);
   const [photo, setPhoto] = useState(null);
+  const [photoName, setPhotoName] = useState('');
   const [facing, setFacing] = useState('back');
   const [torch, setTorch] = useState(false);
   const cameraRef = useRef(null);
   const scannedRef = useRef(false);
+  const gallery = usePhotoGallery();
 
+  // Evita mostrar el callback repetidamente cuando el mismo código permanece en cuadro.
   const handleBarcode = ({ data, type }) => {
     if (scannedRef.current) return;
     scannedRef.current = true;
@@ -28,7 +33,11 @@ export default function CameraScreen() {
   const takePhoto = async () => {
     try {
       const result = await cameraRef.current?.takePictureAsync({ quality: 0.75 });
-      if (result?.uri) setPhoto(result.uri);
+      if (result?.uri) {
+        setPhoto(result.uri);
+        setPhotoName(`SensorLab_${new Date().toISOString().slice(0, 19).replace(/[-:T]/g, '')}`);
+        gallery.clearStatus();
+      }
     } catch {
       setPhoto(null);
     }
@@ -62,7 +71,26 @@ export default function CameraScreen() {
       </>}
     </Panel>
     {scanResult ? <Panel><SectionHeader title="CÓDIGO DETECTADO" detail={scanResult.type.toUpperCase()} /><Text selectable style={[styles.resultText, { color: colors.text }]}>{scanResult.data}</Text></Panel> : null}
-    {photo ? <Panel><SectionHeader title="ÚLTIMA CAPTURA" detail="GUARDADA EN CACHÉ" /><Image source={{ uri: photo }} style={styles.photoPreview} resizeMode="cover" /></Panel> : null}
+    {photo ? <Panel>
+      <SectionHeader title="ÚLTIMA CAPTURA" detail="VISTA PREVIA" />
+      <Image source={{ uri: photo }} style={styles.photoPreview} resizeMode="cover" />
+      <Label style={styles.inputLabel}>NOMBRE DEL ARCHIVO</Label>
+      <TextInput
+        accessibilityLabel="Nombre de la imagen"
+        value={photoName}
+        onChangeText={(value) => { setPhotoName(value); gallery.clearStatus(); }}
+        placeholder="Escribe un nombre"
+        placeholderTextColor={colors.muted}
+        autoCapitalize="none"
+        maxLength={65}
+        style={[styles.nameInput, { color: colors.text, borderColor: colors.line, backgroundColor: colors.panel2 }]}
+      />
+      <View style={styles.buttonRow}>
+        <ActionButton title={gallery.saving ? 'GUARDANDO…' : 'GUARDAR EN GALERÍA'} onPress={() => gallery.savePhoto(photo, photoName)} disabled={gallery.saving} />
+        <ActionButton title="CONSERVAR AQUÍ" onPress={gallery.keepHere} secondary disabled={gallery.saving} />
+      </View>
+      {gallery.status ? <Text accessibilityLiveRegion="polite" style={[styles.galleryStatus, { color: gallery.savedName ? '#5cf0a0' : colors.muted }]}>{gallery.status}{gallery.savedName ? ` · ${gallery.savedName}` : ''}</Text> : null}
+    </Panel> : null}
   </>;
 }
 
@@ -80,4 +108,7 @@ const styles = StyleSheet.create({
   buttonRow: { flexDirection: 'row', gap: 9, marginTop: 9 },
   resultText: { fontSize: 14, lineHeight: 21 },
   photoPreview: { width: '100%', height: 200 },
+  inputLabel: { marginTop: 14, marginBottom: 7 },
+  nameInput: { minHeight: 44, borderWidth: 1, paddingHorizontal: 11, fontSize: 13 },
+  galleryStatus: { fontSize: 10, lineHeight: 16, marginTop: 10, letterSpacing: 0.5 },
 });

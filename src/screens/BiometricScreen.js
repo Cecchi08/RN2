@@ -7,6 +7,7 @@ import { BodyText, Label } from '../components/Typography';
 import useBiometricAuth from '../hooks/useBiometricAuth';
 import { useTheme } from '../theme/ThemeContext';
 
+// Indica si hay huella disponible y muestra el resultado de la autenticación.
 export default function BiometricScreen() {
   const { colors } = useTheme();
   const { status, busy, authenticate } = useBiometricAuth();

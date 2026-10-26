@@ -11,6 +11,7 @@ const MODULES = [
   ['05', 'Biometría', 'Verifica identidad con huella o rostro.', 'biometric'],
 ];
 
+// Presenta el estado general y permite abrir cada herramienta desde sus tarjetas.
 export default function HomeScreen({ compact, onNavigate }) {
   const { colors } = useTheme();
   return <>

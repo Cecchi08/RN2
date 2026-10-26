@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text } from 'react-native';
 import { useTheme } from '../theme/ThemeContext';
 
+// Botón de control con estados visuales para acciones primarias y secundarias.
 export default function ActionButton({ title, onPress, secondary = false, disabled = false, style }) {
   const { colors } = useTheme();
   return (

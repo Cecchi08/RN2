@@ -8,6 +8,7 @@ import useLocationData from '../hooks/useLocationData';
 import { formatNumber } from '../utils/format';
 import { useTheme } from '../theme/ThemeContext';
 
+// Muestra adquisición de GPS, orientación y coordenadas recibidas del dispositivo.
 export default function LocationScreen() {
   const { colors } = useTheme();
   const { location, heading, status, readLocation } = useLocationData();
@@ -37,6 +38,7 @@ export default function LocationScreen() {
 }
 
 function DataRow({ label, value }) {
+  // Fila compacta para mostrar precisión, altitud y rumbo con estilos consistentes.
   const { colors } = useTheme();
   return <View style={[styles.dataRow, { borderTopColor: colors.line }]}><Text style={[styles.dataLabel, { color: colors.muted }]}>{label}</Text><Text style={[styles.dataValue, { color: colors.text }]}>{value}</Text></View>;
 }

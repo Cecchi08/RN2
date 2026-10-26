@@ -1,3 +1,4 @@
+// Colores compartidos para mantener la misma identidad visual en ambos temas.
 export const PALETTES = {
   dark: {
     mode: 'dark', bg: '#061018', panel: '#0a1923', panel2: '#10232e', line: '#183746',

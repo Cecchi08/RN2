@@ -1,3 +1,4 @@
+// Configuración visible de los cinco destinos principales de la aplicación.
 export const TABS = [
   { id: 'overview', label: 'INICIO', icon: '\u2302' },
   { id: 'camera', label: 'CÁMARA', icon: '\u25c9' },

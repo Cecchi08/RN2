@@ -7,27 +7,60 @@
     "userInterfaceStyle": "automatic",
     "android": {
       "package": "com.mateo.sensorlab",
-      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "android.permission.CAMERA",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT"
+      ]
     },
     "ios": {
       "bundleIdentifier": "com.mateo.sensorlab",
       "supportsTablet": true
     },
     "plugins": [
-      ["expo-camera", {
-        "cameraPermission": "Sensor Lab necesita la cámara para tomar fotos y leer códigos.",
-        "microphonePermission": "Sensor Lab no utiliza el micrófono.",
-        "recordAudioAndroid": false
-      }],
-      ["expo-location", {
-        "locationWhenInUsePermission": "Sensor Lab usa tu ubicación para mostrar coordenadas GPS."
-      }],
-      ["expo-local-authentication", {
-        "faceIDPermission": "Sensor Lab utiliza Face ID para probar la autenticación biométrica."
-      }],
-      ["expo-sensors", {
-        "motionPermission": "Sensor Lab usa los sensores de movimiento para mostrar aceleración y giro."
-      }]
-    ]
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Sensor Lab necesita la cámara para tomar fotos y leer códigos.",
+          "microphonePermission": "Sensor Lab no utiliza el micrófono.",
+          "recordAudioAndroid": false
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Sensor Lab usa tu ubicación para mostrar coordenadas GPS."
+        }
+      ],
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Sensor Lab utiliza Face ID para probar la autenticación biométrica."
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Sensor Lab permite guardar las fotos que capturas.",
+          "savePhotosPermission": "Sensor Lab guarda las fotos que eliges conservar.",
+          "granularPermissions": ["photo"]
+        }
+      ],
+      [
+        "expo-sensors",
+        {
+          "motionPermission": "Sensor Lab usa los sensores de movimiento para mostrar aceleración y giro."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "50663b76-7ba2-43fe-88ae-eeb600f39f7b"
+      }
+    }
   }
 }

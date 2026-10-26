@@ -11,8 +11,10 @@ import HomeScreen from './src/screens/HomeScreen';
 import LocationScreen from './src/screens/LocationScreen';
 import SensorsScreen from './src/screens/SensorsScreen';
 
+// Relaciona cada sección de la barra inferior con su pantalla independiente.
 const screens = { overview: HomeScreen, camera: CameraScreen, location: LocationScreen, sensors: SensorsScreen, biometric: BiometricScreen };
 
+// Ensambla el marco común y desmonta la pantalla anterior al cambiar de módulo.
 function AppContent() {
   const { width } = useWindowDimensions();
   const { colors } = useTheme();
@@ -37,6 +39,7 @@ function AppContent() {
 }
 
 export default function App() {
+  // Comparte el tema con navegación, pantallas y componentes reutilizables.
   return <ThemeProvider><AppContent /></ThemeProvider>;
 }
 

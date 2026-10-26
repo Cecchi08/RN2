@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useTheme } from '../theme/ThemeContext';
 
+// Barra inferior que resalta la pantalla seleccionada y conserva el acceso a módulos.
 export default function BottomNavigation({ tabs, selected, onSelect, compact }) {
   const { colors } = useTheme();
   return (

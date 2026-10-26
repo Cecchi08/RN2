@@ -1,6 +1,7 @@
 import { StyleSheet, Text } from 'react-native';
 import { useTheme } from '../theme/ThemeContext';
 
+// Textos reutilizables para etiquetas, encabezados y descripciones de interfaz.
 export function Label({ children, style }) {
   const { colors } = useTheme();
   return <Text style={[styles.label, { color: colors.muted }, style]}>{children}</Text>;

@@ -2,6 +2,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useTheme } from '../theme/ThemeContext';
 import StatusDot from './StatusDot';
 
+// Cabecera de marca con estado de conexión y alternador de tema.
 export default function AppHeader() {
   const { colors, toggleTheme } = useTheme();
   return (

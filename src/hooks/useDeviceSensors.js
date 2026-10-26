@@ -3,6 +3,7 @@ import { Accelerometer, Gyroscope } from 'expo-sensors';
 
 const EMPTY_READING = { x: 0, y: 0, z: 0 };
 
+// Suscribe acelerómetro y giroscopio mientras la pantalla de sensores está montada.
 export default function useDeviceSensors() {
   const [accelerometer, setAccelerometer] = useState(EMPTY_READING);
   const [gyroscope, setGyroscope] = useState(EMPTY_READING);

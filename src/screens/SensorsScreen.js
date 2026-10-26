@@ -7,6 +7,7 @@ import useDeviceSensors from '../hooks/useDeviceSensors';
 import { formatNumber } from '../utils/format';
 import { useTheme } from '../theme/ThemeContext';
 
+// Distribuye en vivo las lecturas del acelerómetro y del giroscopio.
 export default function SensorsScreen() {
   const { colors } = useTheme();
   const { accelerometer, gyroscope } = useDeviceSensors();
@@ -22,6 +23,7 @@ export default function SensorsScreen() {
 }
 
 function SensorGroup({ title, values, unit }) {
+  // Renderiza los tres ejes de un sensor y su indicador de lectura activa.
   const { colors } = useTheme();
   return <View style={[styles.group, { borderColor: colors.line }]}>
     <View style={styles.groupHeader}><Label>{title}</Label><View style={styles.live}><StatusDot size={5} /><Text style={[styles.liveText, { color: colors.cyan }]}>LIVE</Text></View></View>
